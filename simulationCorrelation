@@ -1,0 +1,95 @@
+# -----------------------------------------------------------
+# simulation with correlation
+# -----------------------------------------------------------
+simulate_lr_data <- function(n, colnames,
+                             p_diff = 0.15,   # probability L and R differ
+                             max_step = 1) {  # magnitude of difference
+  sample_1_5 <- function(size) sample(1:5, size = size, replace = TRUE)
+  
+  # Identify L/R variables
+  is_L <- grepl("L$", colnames)
+  is_R <- grepl("R$", colnames)
+  
+  base_L <- sub("L$", "", colnames[is_L])
+  base_R <- sub("R$", "", colnames[is_R])
+  
+  shared_bases <- intersect(base_L, base_R)
+  
+  pair_list <- lapply(shared_bases, function(b) {
+    list(
+      base = b,
+      L = colnames[is_L][base_L == b][1],
+      R = colnames[is_R][base_R == b][1]
+    )
+  })
+  
+  out <- as.data.frame(matrix(NA_integer_, nrow = n, ncol = length(colnames)))
+  names(out) <- colnames
+  
+  # Generate correlated pairs
+  for (pair in pair_list) {
+    base_scores <- sample_1_5(n)
+    
+    L_vals <- base_scores
+    R_vals <- base_scores
+    
+    differ <- runif(n) < p_diff
+    idx <- which(differ)
+    
+    if (length(idx) > 0) {
+      step <- sample(c(-max_step, max_step), length(idx), replace = TRUE)
+      change_L <- runif(length(idx)) < 0.5
+      
+      L_idx <- idx[change_L]
+      R_idx <- idx[!change_L]
+      
+      if (length(L_idx) > 0) {
+        L_vals[L_idx] <- pmin(5, pmax(1, L_vals[L_idx] + step[change_L]))
+      }
+      if (length(R_idx) > 0) {
+        R_vals[R_idx] <- pmin(5, pmax(1, R_vals[R_idx] + step[!change_L]))
+      }
+    }
+    
+    out[[pair$L]] <- L_vals
+    out[[pair$R]] <- R_vals
+  }
+  
+  # Fill remaining variables with random 1–5
+  paired_cols <- unlist(lapply(pair_list, function(x) c(x$L, x$R)))
+  remaining <- setdiff(colnames, paired_cols)
+  
+  for (cn in remaining) {
+    out[[cn]] <- sample_1_5(n)
+  }
+  
+  out
+}
+
+# -----------------------------------------------------------
+# columns
+# -----------------------------------------------------------
+
+cols <- c(
+  "Glabella", "Nuchal",
+  "SOML", "SOMR",
+  "MPL",  "MPR",
+  "IPRL", "IPRR",
+  "VAL",  "VAR",
+  "SCL",  "SCR"
+)
+
+# -----------------------------------------------------------
+# Generate 350 rows
+# -----------------------------------------------------------
+
+set.seed(123)
+sim_data <- simulate_lr_data(
+  n = 350,
+  colnames = cols,
+  p_diff = 0.15,
+  max_step = 1
+)
+
+head(sim_data)
+write.csv(sim_data,"morph_sim.csv",sep=",")
