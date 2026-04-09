@@ -1,5 +1,4 @@
-[README.md](https://github.com/user-attachments/files/26606782/README.md)
-# morphoPASSE calibration
+# MorphoPASSE calibration
 
 This repository contains the analysis for a study evaluating whether posterior probabilities produced by **MorphoPASSE** are calibrated to the discriminatory capacity of cranial and pelvic morphoscopic traits.
 
