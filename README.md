@@ -2,7 +2,7 @@
 
 This repository contains the analysis for a study evaluating whether posterior probabilities produced by **MorphoPASSE** are calibrated to the discriminatory capacity of cranial and pelvic morphoscopic traits.
 
-The repository is organized for reproducibility and public release, but the **manuscript is intentionally not included yet**. It will be added after publication.
+The repository is organized for reproducibility and public release; the **manuscript is not included yet**. It will be added after publication.
 
 **Authors: Joseph T. Hefner and Kenzie A. Burns**
 
@@ -11,13 +11,6 @@ The repository is organized for reproducibility and public release, but the **ma
 - a build script to assemble the analysis dataset from the source Excel workbook
 - a cleaned analysis script used to generate the current multi-panel Figure 1
 - the source workbook used to create `dat_clean`
-- the current exported Figure 1 file
-
-## What this repository does not contain
-
-- the manuscript text
-- supplemental materials not yet finalized for release
-
 
 ## Repository structure
 
