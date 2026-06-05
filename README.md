@@ -46,38 +46,8 @@ morphopasse-calibration/
 
 Run the scripts in this order from the repository root.
 
-### 1. Build the derived dataset
-
 `code/00_build_dat_clean.R`
-
-This script:
-- reads `data/raw/raw_Data_morpho.xlsx`
-- identifies sheet-level dataset and region labels
-- combines sheets into a unified analysis object
-- writes: 
-  - `data/derived/dat_clean.rds`
-  - `data/derived/dat_clean.csv`
-
-### 2. Run the main analysis
-
 `code/01_data_analysis.R`
-
-This script:
-- loads `data/derived/dat_clean.rds`
-- identifies morphoscopic trait columns
-- computes permutation-based Random Forest benchmarks
-- summarizes MorphoPASSE posterior probabilities
-- produces the current multi-panel Figure 1
-- writes:
-  - `figures/generated/Figure1_MultiPanel_A-C.png`
-
-## Getting started
-A typical local run looks like this:
-
-```r
-source("code/00_build_dat_clean.R")
-source("code/01_data_analysis.R")
-```
 
 ## Citation and license
 
