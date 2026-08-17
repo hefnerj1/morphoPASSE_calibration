@@ -9,9 +9,9 @@ The repository is organized for reproducibility and public release, but the **ma
 ## Contents
 
 - a build script to assemble the analysis dataset from the source Excel workbook
-- a cleaned analysis script used to generate the current multi-panel Figure 1
+- a cleaned analysis script used to generate the current multi-panel Figures
 - the source workbook used to create `dat_clean`
-- the current exported Figure 1 file
+- the current exported Figures
 
 ## What this repository does not contain
 
